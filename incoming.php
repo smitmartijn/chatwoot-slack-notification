@@ -20,6 +20,8 @@ include "vendor/autoload.php";
 $max_slack_message_size = 200;
 // what's the main Slack webhook URL? See line 54 for another (optional) webhook config
 $webhook_url = 'https://hooks.slack.com/services/yoururl';
+// your Chatwoot URL, which is added to the Slack message so you can click into the conversation from Slack
+$chatwoot_url = "https://chatwoot.yourdomain.tld";
 // Slack bot settings
 $settings = [
   'username' => 'Chatwoot',
@@ -60,7 +62,7 @@ if ($json['event'] == "message_created") {
 
   $message = "New message from " . $json['sender']['name'] . "\n";
   $message .= $chat_message . "\n";
-  $message .= "https://chat.whatpulse.org/app/accounts/1/conversations/" . $conversation_id;
+  $message .= $chatwoot_url . "/app/accounts/1/conversations/" . $conversation_id;
 } else {
   // you can check for other events here, if you want
   return;
